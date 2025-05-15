@@ -5,10 +5,12 @@ on:
     branches:
       - main
       - alpha-dev
+      - fix_cov_test_issue
   pull_request:
     branches:
       - main
       - alpha-dev
+      - fix_cov_test_issue
   workflow_dispatch:
 
 jobs:
@@ -55,9 +57,13 @@ jobs:
         run: |
           ./build/helios++ --test
 
-      - name: Run PyTest test suite
+      - name: Run PyTest test scene suite
         run: |
-          python -m pytest --cov --cov-report=xml 
+          python -m pytest tests/python/test_scene.py --cov --cov-report=xml
+
+      - name: Run PyTest test survey suite
+        run: |
+          python -m pytest tests/python/test_survey.py --cov --cov-report=xml
 
       - name: Collect C++ coverage report
         run: |

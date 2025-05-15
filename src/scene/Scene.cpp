@@ -106,12 +106,14 @@ bool Scene::finalizeLoading(bool const safe) {
 
     // Iterate over the primitives and translate each vertex:
     for (Primitive *p : primitives) {
+        if (!p) throw std::runtime_error("Null primitive in finalizeLoading");
         Vertex *v = p->getVertices();
+        if (!v) throw std::runtime_error("Null vertices in primitive");
         for (size_t i = 0; i < p->getNumVertices(); i++) {
             v[i].pos = v[i].pos - diff;
         }
-        p->update();
     }
+    
 
     // Get new bounding box of translated scene:
     this->bbox = AABB::getForPrimitives(primitives);

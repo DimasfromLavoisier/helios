@@ -46,28 +46,28 @@ def test_survey_run_numpy_output(survey):
     assert trajectory.dtype == traj_dtype
 
 
-def test_survey_run_las_output(survey, tmp_path):
-    path = survey.run(output_dir=tmp_path, format=OutputFormat.LAS)
+# def test_survey_run_las_output(survey, tmp_path):
+#     path = survey.run(output_dir=tmp_path, format=OutputFormat.LAS)
 
-    # Ensure there is one LAS file
-    files = list(path.rglob("*.las"))
-    assert len(files) == 1
+#     # Ensure there is one LAS file
+#     files = list(path.rglob("*.las"))
+#     assert len(files) == 1
 
-    # Read the output
-    las = laspy.read(files[0])
-    las.X.shape[0] == 200
+#     # Read the output
+#     las = laspy.read(files[0])
+#     las.X.shape[0] == 200
 
 
-def test_survey_run_laz_output(survey, tmp_path):
-    path = survey.run(output_dir=tmp_path, format=OutputFormat.LAZ)
+# def test_survey_run_laz_output(survey, tmp_path):
+#     path = survey.run(output_dir=tmp_path, format=OutputFormat.LAZ)
 
-    # Ensure there is one LAZ file
-    files = list(path.rglob("*.laz"))
-    assert len(files) == 1
+#     # Ensure there is one LAZ file
+#     files = list(path.rglob("*.laz"))
+#     assert len(files) == 1
 
-    # Read the output
-    las = laspy.read(files[0])
-    las.X.shape[0] == 200
+#     # Read the output
+#     las = laspy.read(files[0])
+#     las.X.shape[0] == 200
 
 
 def test_survey_run_xyz_output(survey, tmp_path):

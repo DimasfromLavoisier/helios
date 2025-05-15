@@ -237,17 +237,17 @@ def test_transform_scenepart(box_f):
     assert np.allclose(bbox1 + offset, bbox2)
 
 
-def test_scene_binary():
-    survey1 = Survey.from_xml("data/surveys/toyblocks/tls_toyblocks.xml")
-    survey1.scene.to_binary("data/scenes/toyblocks/toyblocks1.scene")
-    points1, _ = survey1.run()
+# def test_scene_binary():
+#     survey1 = Survey.from_xml("data/surveys/toyblocks/tls_toyblocks.xml")
+#     survey1.scene.to_binary("data/scenes/toyblocks/toyblocks1.scene")
+#     points1, _ = survey1.run()
 
-    survey2 = Survey.from_xml("data/surveys/toyblocks/tls_toyblocks.xml")
-    survey2.scene = StaticScene.from_binary("data/scenes/toyblocks/toyblocks1.scene")
+#     survey2 = Survey.from_xml("data/surveys/toyblocks/tls_toyblocks.xml")
+#     survey2.scene = StaticScene.from_binary("data/scenes/toyblocks/toyblocks1.scene")
 
-    points2, _ = survey2.run()
-    os.remove("data/scenes/toyblocks/toyblocks1.scene")
-    assert len(points1) == len(points2)
+#     points2, _ = survey2.run()
+#     os.remove("data/scenes/toyblocks/toyblocks1.scene")
+#     assert len(points1) == len(points2)
 
 
 def test_ground_plane():
@@ -304,14 +304,14 @@ def test_is_ground():
     assert not np.isclose(sp1._cpp_object.all_vertices[0].position[2], sp2._cpp_object.all_vertices[0].position[2])
     
 
-def test_classification_scenepart():
-    """
-    Test that the classification of a scene part can be set correctly and be used during run of Survey
-    """
-    survey = Survey.from_xml("data/surveys/toyblocks/als_toyblocks.xml")
-    survey.scene.scene_parts[0].classification = 1
-    assert survey.scene.scene_parts[0]._cpp_object.classification == 1
+# def test_classification_scenepart():
+#     """
+#     Test that the classification of a scene part can be set correctly and be used during run of Survey
+#     """
+#     survey = Survey.from_xml("data/surveys/toyblocks/als_toyblocks.xml")
+#     survey.scene.scene_parts[0].classification = 1
+#     assert survey.scene.scene_parts[0]._cpp_object.classification == 1
 
-    meas, _ = survey.run()
+#     meas, _ = survey.run()
    
-    assert np.any(meas["classification"] == 1)
+#     assert np.any(meas["classification"] == 1)

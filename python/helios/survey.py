@@ -58,7 +58,15 @@ class Survey(Model, cpp_class=_helios.Survey):
             raise ValueError(f"Unknown parameters: {', '.join(parameters)}")
 
         # Ensure that the scene has been finalized
-        self.scene._finalize(execution_settings)
+        # we need to catch potential issue including segfault in _finalize
+        try:
+            self.scene._finalize(execution_settings)
+        except RuntimeError as e:
+            raise RuntimeError(
+                "Scene has not been finalized. Please finalize the scene before running the survey."
+            ) from e
+
+        
         self.scene._set_reflectances(self.scanner._cpp_object.wavelength)
 
         # Set the fullwave form settings on the scanner
@@ -105,17 +113,22 @@ class Survey(Model, cpp_class=_helios.Survey):
             execution_settings.warehouse_factor,
         )
         pulse_thread_pool = ptpf.make_pulse_thread_pool()
-        playback = _helios.SurveyPlayback(
-            self._cpp_object,
-            execution_settings.parallelization,
-            pulse_thread_pool,
-            execution_settings.chunk_size,
-            str(self.gps_time.timestamp()),
-            True,
-            export_to_file,
-            execution_settings.discard_shutdown,
-            fms,
-        )
+        try:
+            playback = _helios.SurveyPlayback(
+                self._cpp_object,
+                execution_settings.parallelization,
+                pulse_thread_pool,
+                execution_settings.chunk_size,
+                str(self.gps_time.timestamp()),
+                True,
+                export_to_file,
+                execution_settings.discard_shutdown,
+                fms,
+            )
+        except RuntimeError as e:
+            raise RuntimeError(
+                "Unable to create playback object. Please check your execution settings."
+            ) from e
         playback.callback_frequency = 0
 
         self.scanner._cpp_object.cycle_measurements = np.empty((0,), dtype=meas_dtype)
