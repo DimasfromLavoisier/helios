@@ -68,6 +68,7 @@ public:
         lws(path, scaleFactor, offset, minIntensity, deltaIntensity),
         finished(false)
     {
+        std::cout<<"LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL in LasSyncFileWriter::LasSyncFileWriter"<<std::endl;
         // If construct must create the writer
         if(createWriter){
             // Create LASWriter
@@ -87,17 +88,20 @@ public:
      */
     virtual void createLasWriter(const std::string & path, bool const compress)
     {
+        std::cout<<"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM in LasSyncFileWriter::createLasWriter"<<std::endl;
         // Craft header and point format
         craftSpec(lws);
-
+        std::cout<<"NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN in LasSyncFileWriter::createLasWriter after craftSpec"<<std::endl;
         // Add extra attributes
         lws.addExtraAttributes();
-
+        std::cout<<"OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO in LasSyncFileWriter::createLasWriter after addExtraAttributes"<<std::endl;
         // Initialize LASpoint
         lws.initLASPoint();
+        std::cout<<"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP in LasSyncFileWriter::createLasWriter after initLASPoint"<<std::endl;
 
         // Create writer from specification
         lw = lws.makeWriter(path, compress);
+        std::cout<<"QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ in LasSyncFileWriter::createLasWriter after makeWriter"<<std::endl;
     }
     /**
      * @brief Assist the LasSyncFileWriter::createLasWriters method by

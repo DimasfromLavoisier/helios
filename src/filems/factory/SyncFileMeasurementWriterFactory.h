@@ -89,6 +89,7 @@ makeWriter(
     glm::dvec3 const offset = glm::dvec3(0, 0, 0),
     double const minIntensity = 0.0, double const deltaIntensity = 1000000.0
 ){
+    std::cout<<"DEDEDEDEDEDEDEDEDEDEDE in SyncFileMeasurementWriterFactory::makeWriter"<<std::endl;
     switch (type) {
         case las10Type:
             return make_shared<LasSyncFileMeasurementWriter>(
@@ -113,7 +114,7 @@ makeWriter(
       case simpleType:
             return make_shared<SimpleSyncFileMeasurementWriter>(path);
   }
-
+    std::cout<<"EDEDEDEDDEDDEDDEDDEDDED in SyncFileMeasurementWriterFactory::makeWriter"<<std::endl;
       // Handle unexpected type
       stringstream ss;
       ss    << "SyncFileMeasurementWriterFactory::makeWriter received an "
@@ -141,6 +142,7 @@ static shared_ptr<
     glm::dvec3 const offset = glm::dvec3(0, 0, 0),
     double const minIntensity = 0.0, double const deltaIntensity = 1000000.0
 ){
+    std::cout<<"JJJJJJJJJJJJJJJJ000000JJJJJJJJJJJJJJJJJJJJ in SyncFileMeasurementWriterFactory::makeVectorialWriter"<<std::endl;
     switch (type) {
         case las10Type:
             return make_shared<LasVectorialSyncFileMeasurementWriter>(
@@ -152,6 +154,7 @@ static shared_ptr<
                 deltaIntensity                       // Delta intensity
             );
         case las14Type:
+            std::cout<<"JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ in las14Type"<<std::endl;
             return make_shared<Las14VectorialSyncFileMeasurementWriter>(
                 path,                                // Output path
                 compress,                            // Zip flag

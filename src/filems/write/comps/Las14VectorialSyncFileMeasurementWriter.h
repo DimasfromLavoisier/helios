@@ -86,6 +86,7 @@ public:
             lws.ampAttrStart
         )
     {
+        std::cout<<"KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK in Las14VectorialSyncFileMeasurementWriter"<<std::endl;
         // If construct requires creating the wi
         if(createWriter){
             // Create the LASWriter

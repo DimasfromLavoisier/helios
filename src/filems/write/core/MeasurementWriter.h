@@ -72,6 +72,7 @@ public:
         double const minIntensity,
         double const deltaIntensity
     ) const override{
+        std::cout<<"DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD in MeasurementWriter::makeWriter"<<std::endl;
         return SyncFileMeasurementWriterFactory::makeWriter(
             type,                   // Writer type
             path,                   // Output path

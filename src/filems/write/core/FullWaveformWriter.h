@@ -59,6 +59,7 @@ public:
     shared_ptr<SyncFileWriter<FullWaveform const &>> makeWriter(
         string const &path
     ) const override{
+        std::cout<<"GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG in FullWaveformWriter::makeWriter"<<std::endl;
         if(isZipOutput()){
             return make_shared<ZipSyncFileFullWaveformWriter>(
                 path

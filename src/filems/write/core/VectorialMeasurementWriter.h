@@ -75,6 +75,14 @@ public:
         double const minIntensity,
         double const deltaIntensity
     ) const override{
+        std::cout<<"IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII in VectorialMeasurementWriter::makeWriter"<<std::endl;
+        std::cout<<"print all input parameters"<<std::endl;
+        std::cout<<"type: "<<type<<std::endl;
+        std::cout<<"path: "<<path<<std::endl;
+        std::cout<<"zipOutput: "<<zipOutput<<std::endl;
+        std::cout<<"lasScale: "<<lasScale<<std::endl;
+        std::cout<<"shift: "<<shift.x<<", "<<shift.y<<", "<<shift.z<<std::endl;
+
         return SyncFileMeasurementWriterFactory::makeVectorialWriter(
             type,                   // Writer type
             path,                   // Output path

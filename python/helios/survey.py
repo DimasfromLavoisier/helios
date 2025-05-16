@@ -48,7 +48,7 @@ class Survey(Model, cpp_class=_helios.Survey):
         # Update the settings to use
         execution_settings = compose_execution_settings(execution_settings, parameters)
         output_settings = compose_output_settings(output_settings, parameters)
-
+        print("IN THE RUN FUNCTION")
         # Update logs settings
         apply_log_writing(execution_settings)
         execution_settings.verbosity.apply()
@@ -66,7 +66,7 @@ class Survey(Model, cpp_class=_helios.Survey):
                 "Scene has not been finalized. Please finalize the scene before running the survey."
             ) from e
 
-        
+        print("AFTER FINALIZE")
         self.scene._set_reflectances(self.scanner._cpp_object.wavelength)
 
         # Set the fullwave form settings on the scanner
@@ -103,7 +103,7 @@ class Survey(Model, cpp_class=_helios.Survey):
             )
      
         # Set up internal data structures for the execution
-
+        print("After FMS SETUP")
         accuracy = self.scanner._cpp_object.detector.accuracy
         ptpf = _helios.PulseThreadPoolFactory(
             execution_settings.parallelization,
@@ -130,7 +130,7 @@ class Survey(Model, cpp_class=_helios.Survey):
                 "Unable to create playback object. Please check your execution settings."
             ) from e
         playback.callback_frequency = 0
-
+        print("After PLAYBACK SETUP")
         self.scanner._cpp_object.cycle_measurements = np.empty((0,), dtype=meas_dtype)
         self.scanner._cpp_object.cycle_trajectories = np.empty((0,), dtype=traj_dtype)
         self.scanner._cpp_object.cycle_measurements_mutex = None
@@ -140,7 +140,7 @@ class Survey(Model, cpp_class=_helios.Survey):
         self.scanner._cpp_object.all_measurements_mutex = None
         # Start simulating the survey
         playback.start()
-
+        print("After PLAYBACK START")
         if output_settings.format in (OutputFormat.NPY, OutputFormat.LASPY):
             # TODO: Handle situation when measurements or trajectories are empty, since they turned out to be not necessarily required
             measurements = self.scanner._cpp_object.all_measurements
@@ -176,9 +176,16 @@ class Survey(Model, cpp_class=_helios.Survey):
                 # las.hitObjectId = data_mes["hit_object_id"]
 
                 return las, trajectories
-
+        
+        try: 
+            returned_path = Path(playback.fms.write.get_measurement_writer_output_path()).parent
+        except RuntimeError:
+            raise RuntimeError(
+                "The simulation was not run with output to file. "
+                "Please set the output_dir parameter to a directory."
+            )
         # Return path to the created output directory
-        return Path(playback.fms.write.get_measurement_writer_output_path()).parent
+        return returned_path
 
     def add_leg(
         self,
