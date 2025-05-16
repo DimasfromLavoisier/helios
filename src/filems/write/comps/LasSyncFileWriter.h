@@ -69,6 +69,7 @@ public:
         finished(false)
     {
         std::cout<<"LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL in LasSyncFileWriter::LasSyncFileWriter"<<std::endl;
+        std::cout<<"createWriter: "<<createWriter<<std::endl;
         // If construct must create the writer
         if(createWriter){
             // Create LASWriter

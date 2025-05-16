@@ -164,6 +164,7 @@ static shared_ptr<
                 deltaIntensity                       // Delta intensity
             );
         case zipType:
+            std::cout<<"JJJJJJJJJJJJJJJJJJJ333333333333333333JJJJJJJJJJJJJJJJJJJJJJ in las14Type"<<std::endl;
             return make_shared<ZipVectorialSyncFileMeasurementWriter>(path);
         case simpleType:
             return make_shared<SimpleVectorialSyncFileMeasurementWriter>(path);
