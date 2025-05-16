@@ -15,7 +15,6 @@ void BaseMeasurementWriter<WriteArgs ...>::configure(
     stringstream ss;
     ss << parent << prefix;
     if(this->isLasOutput()){
-        std::cout<<"AAAAAAAAAAAAAAAAAAAAAAAAAAA in BaseMeasurementWriter::configure"<<std::endl;
         if(isZipOutput()) ss << "_points.laz";
         else ss << "_points.las";
     }
@@ -87,14 +86,10 @@ void BaseMeasurementWriter<WriteArgs ...>::setOutputFilePath(
     string const &path,
     bool const lastLegInStrip
 ){
-    std::cout<<"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB in BaseMeasurementWriter::setOutputFilePath"<<std::endl;
     logging::WARN("outputFilePath=" + path);
     try {
-        std::cout<<"BBBBBBBBBBBBBBBBBBBB00000BBBBBBBBBBBBBBBBB in BaseMeasurementWriter::setOutputFilePath"<<std::endl;
-            
         WriterType wt = chooseWriterType();
-        std::cout<<"BBBBBBBBBBBBBBBBBBBB11111BBBBBBBBBBBBBBBBB in BaseMeasurementWriter::setOutputFilePath"<<std::endl;
-            
+
         // Finish previous writer properly, if any
         //if(sfw != nullptr) sfw->finish(); // It is already done by destructor
 
@@ -110,10 +105,6 @@ void BaseMeasurementWriter<WriteArgs ...>::setOutputFilePath(
                 0.0,                                    // Min intensity
                 1000000.0                               // Delta intensity
             );
-            if (!sfw) {
-                throw std::runtime_error("Failed to create writer: makeWriter(...) returned nullptr");
-            }
-            std::cout<<"BBBBBBBBBBBBBBBBBBBB22222BBBBBBBBBBBBBBBBB in BaseMeasurementWriter::setOutputFilePath"<<std::endl;
             logging::DEBUG("Created synchronous file writer!");
             writers[path] = sfw;
             logging::DEBUG("Stored synchronous file writer!");
@@ -139,5 +130,4 @@ void BaseMeasurementWriter<WriteArgs ...>::setOutputFilePath(
     } catch (std::exception &e) {
         logging::WARN(e.what());
     }
-    std::cout<<"CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC in BaseMeasurementWriter::setOutputFilePath"<<std::endl;
 }

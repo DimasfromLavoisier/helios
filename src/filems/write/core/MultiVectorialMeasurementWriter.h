@@ -44,7 +44,6 @@ public:
         double const minIntensity,
         double const deltaIntensity
     ) const override{
-        std::cout<<"HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH in MultiVectorialMeasurementWriter::makeWriter"<<std::endl;
         // Extract path without extension, and the extension itself
         std::string ext;
         std::string pathNonExt;

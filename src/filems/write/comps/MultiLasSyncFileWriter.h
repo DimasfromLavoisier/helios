@@ -89,7 +89,6 @@ public:
      */
     void createLasWriters(vector<string> const &path, bool const compress)
     {
-        std::cout<<"RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR in MultiLasSyncFileWriter::createLasWriters"<<std::endl;
         size_t const nWriters = path.size();
         for(size_t i = 0 ; i < nWriters ; ++i){ // For each i-th writer
             // Extract path and writer spec

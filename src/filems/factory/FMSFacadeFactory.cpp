@@ -28,7 +28,6 @@ shared_ptr<FMSFacade> FMSFacadeFactory::buildFacade(
     Survey &survey,
     bool const updateSurvey
 ){
-    std::cout<<"EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE in FMSFacadeFactory::buildFacade"<<std::endl;
     // Try to find a non-existent root directory
     time_t t = std::time(nullptr);
     struct tm * tm = std::localtime(&t);

@@ -315,7 +315,6 @@ public:
     shared_ptr<LASwriter> makeWriter(
         std::string const &path, bool const compress
     ){
-        std::cout<<"FFFFFFFFFFFFFFFFFF in LasWriterSpec::makeWriter"<<std::endl;
         // Create LAS writer from specification
         lwOpener.set_file_name(path.c_str());
         if(compress) lwOpener.set_format(LAS_TOOLS_FORMAT_LAZ);
